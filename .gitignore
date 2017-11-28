@@ -2,5 +2,6 @@ Public/admin/node_modules/
 .idea/
 *.log
 Runtime/
+Conf/*.php
 
 Public/admin/dist/build_dev\.js
