@@ -1,0 +1,173 @@
+<extend name="Public:home"/>
+<block name="title">登录</block>
+<block name="style">
+    <style type="text/css">
+        .active {background-color: red}
+        .lgin-div {float: inherit;display: inline-block}
+        .lgin-div a {margin: 5px}
+    </style>
+</block>
+<block name="container">
+    <div>
+        <div class="login">
+            <div class="lgin-div">
+                <a href="#" v-on:click="tabChange('username')" v-bind:class="{active:isActive}" data-id="123">用户名登录</a>|
+                <a href="#" v-on:click="tabChange('email')" v-bind:class="{active:isActive}">邮箱登录</a>
+            </div>
+            <div>
+                <form @submit.prevent="submit">
+                <template v-if="loginType === 'username'">
+                <label>用户名</label><input type="text" placeholder="Enter your username" name="username" v-model="formdata.username"/><span></span><br/>
+                </template>
+                <template v-else>
+                    <label>用户名</label><input type="text" placeholder="Enter your email address" name="username" v-model="formdata.username"/><br/>
+                </template>
+                <label>密码</label><input type="text" v-model="formdata.passwd"/>
+                <br/>
+                <button type="submit" value="Submit" >提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+<script type="text/javascript">
+    window.birth = '2000/01/01';
+    $(function(){
+        const Greeters = [];
+        for(let i=0;i<10;i++){
+            Greeters.push(function () {
+                return console.log(i)
+            })
+        }
+        console.log(Greeters);
+        Greeters[1]();
+        const isEven = n => n % 2 == 0;
+        console.log(isEven(3));
+        var getTempItem = id => ({ id: id, name: "Temp" });
+        var full=({a,b})=>a+b;
+        var values=[23,12,1,34,116,8,18,37,56,50];
+        values.sort((a, b) => a - b);
+        console.log(values);
+        console.log(full({"a":1,"b":2}));
+        console.log(getTempItem("ss"));
+        var s2=100;
+        function Timer() {
+            var _this=this;
+            this.s1 = 0;
+            this.s2 = 0;
+            // 箭头函数
+            setInterval(() => this.s1++, 1000);
+            // 普通函数
+            setInterval(function () {
+                _this.s2++;
+            }, 1000);
+        }
+
+        var timer = new Timer();
+
+//        setTimeout(() => console.log('s1: ', timer.s1), 3100);
+//        setTimeout(() => console.log('s2: ', timer.s2), 3100);
+
+
+        var Person = {
+
+            name: '张三',
+
+            //等同于birth: birth
+            birth,
+
+            // 等同于hello: function ()...
+            hello() { console.log('我的名字是', this.name); }
+
+        };
+        var cls = {
+            birth,
+            x:"200",
+            say(){console.log("生日",this.birth)},
+            hello(){console.log("x",this.x)}
+        }
+        Object.assign(cls,{x:"1000",y:"20"});
+        cls.say();
+        cls.hello();
+        console.log(cls.x);
+        class Point {
+            constructor(x, y) {
+                Object.assign(this, {x, y});
+            }
+            say(){
+                console.log(this.x)
+            }
+
+        }
+        var P = new Point('abc','def');
+        let hello={}
+        Object.getPrototypeOf(hello,P)
+        console.log(hello);
+        console.log(hello.x);
+        const a = [[1, 2], [3, 4]];
+        const ws = new WeakSet(a);
+        console.log(ws);
+        a.push([5,6]);
+        console.log(ws);
+        console.log(a);
+//        console.log(P.__proto__);
+//        P.__proto__= someOtherObj
+
+
+    });
+
+    var app = new Vue({
+        el: '.login',
+        data: {
+            loginType:'username',
+            isActive:false,
+            formdata:{
+                username:"",
+                passwd:""
+            }
+
+        },
+        computed:{
+//            loginType:function(){
+//                if(this.loginType =='username'){
+//                    this.isActive=true;
+//                }
+//            }
+        },
+        watch:{
+            formdata:{
+                handler:function(newvalue,b){
+                    console.log(newvalue.username);
+                    $(event.currentTarget).next('span').html("您已经输入了"+newvalue.username.length+"个字");
+                },
+                deep:true
+            }
+//            formdata:function (newvalue,oldvalue) {
+//                $(event.currentTarget).next('span').html("您已经输入了"+newvalue.length+"个字")
+//            },
+//            deep:true
+
+        },
+        methods:{
+            submit:function (event) {
+                $.ajax({
+                    type: 'POST',
+                    url: "/index/test",
+                    data: this.formdata,
+                    dataType: 'json',
+                    success:function (obj) {
+                        
+                    },
+                    error:function (obj) {
+                        
+                    }
+                })
+                return false
+            }
+        }
+    })
+</script>
+    <script type="text/javascript" charset="UTF-8" src="__STATIC__/common/??test.js?{:C('APP_VERSION')}"></script>
+
+</block>
