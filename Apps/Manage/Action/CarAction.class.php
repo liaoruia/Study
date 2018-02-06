@@ -50,4 +50,7 @@ class CarAction extends Controller
 //        echo M('js_tao_brand')->getLastSql();die;
         $this->ajax_return($brands);
     }
+    public function test(){
+
+    }
 }
